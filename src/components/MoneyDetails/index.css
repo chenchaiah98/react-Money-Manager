@@ -1,0 +1,42 @@
+/* Write your CSS here */
+
+.transaction-container {
+  max-width: 28%;
+  display: flex;
+  max-height: 100px;
+  border: 1px solid rebeccapurple;
+  border-radius: 10px;
+  margin: 15px auto;
+}
+.transaction-image {
+  width: 30%;
+  margin: auto;
+}
+.transaction-image img {
+  width: 70%;
+}
+.transaction-amount-details {
+  margin: auto;
+  margin-left: -30px;
+}
+.balance-name {
+  color: #334155;
+}
+.balance-amount {
+  color: #334155;
+  font-weight: 600;
+  font-size: 25px;
+  margin-top: -10px;
+}
+.balance {
+  background-color: #ecfccb;
+  border: 2px solid #84cc16;
+}
+.income {
+  background-color: #cffafe;
+  border: 2px solid #06b6d4;
+}
+.expenses {
+  background-color: #cbd5e1;
+  border: 2px solid #7c3aed;
+}
