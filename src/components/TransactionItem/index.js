@@ -2,8 +2,12 @@
 import './index.css'
 
 const TransactionItem = prop => {
-  const {each} = prop
-  const {title, amount, type} = each
+  const {each, deleteTransaction} = prop
+  const {title, amount, type, id} = each
+
+  const onDelete = () => {
+    deleteTransaction(id, type, amount)
+  }
 
   return (
     <li>
@@ -16,6 +20,7 @@ const TransactionItem = prop => {
           src="https://assets.ccbp.in/frontend/react-js/money-manager/delete.png"
           alt="delete"
           data-testid="delete"
+          onClick={onDelete}
         />
       </button>
     </li>

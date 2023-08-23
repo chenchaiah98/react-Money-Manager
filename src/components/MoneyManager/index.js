@@ -44,17 +44,18 @@ class MoneyManager extends Component {
   onAddBtn = () => {
     const {title, amount, type} = this.state
 
-    if (type === 'EXPENSES') {
-      this.setState(prevState => ({
-        totalExpenses: prevState.totalExpenses + amount,
-        totalAmount: prevState.totalAmount - amount,
-      }))
-    } else if (type === 'INCOME') {
-      this.setState(prevState => ({
-        totalIncome: prevState.totalIncome + amount,
-        totalAmount: prevState.totalAmount + amount,
-      }))
-    }
+    // if (type === 'EXPENSES') {
+    //   this.setState(prevState => ({
+    //     totalExpenses: prevState.totalExpenses + amount,
+    //     totalAmount: prevState.totalAmount - amount,
+    //   }))
+    // } else if (type === 'INCOME') {
+    //   this.setState(prevState => ({
+    //     totalIncome: prevState.totalIncome + amount,
+    //     totalAmount: prevState.totalAmount + amount,
+    //   }))
+    // }
+    this.updateBalance(type, amount)
 
     if (title !== '' && amount !== 0 && type !== '') {
       const newTransaction = {
@@ -71,6 +72,42 @@ class MoneyManager extends Component {
         transactionList: [...prevState.transactionList, newTransaction],
       }))
     }
+  }
+
+  updateBalance = (type, amount) => {
+    if (type === 'EXPENSES') {
+      this.setState(prevState => ({
+        totalExpenses: prevState.totalExpenses + amount,
+        totalAmount: prevState.totalAmount - amount,
+      }))
+    } else if (type === 'INCOME') {
+      this.setState(prevState => ({
+        totalIncome: prevState.totalIncome + amount,
+        totalAmount: prevState.totalAmount + amount,
+      }))
+    }
+  }
+
+  onDeleteUpdateBalance = (type, amount) => {
+    if (type === 'EXPENSES') {
+      this.setState(prevState => ({
+        totalExpenses: prevState.totalExpenses - amount,
+        totalAmount: prevState.totalAmount + amount,
+      }))
+    } else if (type === 'INCOME') {
+      this.setState(prevState => ({
+        totalIncome: prevState.totalIncome - amount,
+        totalAmount: prevState.totalAmount - amount,
+      }))
+    }
+  }
+
+  deleteTransaction = (id, type, amount) => {
+    console.log(id, type, amount)
+    const {transactionList} = this.state
+    const filteredTransaction = transactionList.filter(each => each.id !== id)
+    this.onDeleteUpdateBalance(type, amount)
+    this.setState({transactionList: filteredTransaction})
   }
 
   render() {
@@ -178,7 +215,11 @@ class MoneyManager extends Component {
                 <p>Type</p>
               </li>
               {transactionList.map(each => (
-                <TransactionItem each={each} key={each.id} />
+                <TransactionItem
+                  each={each}
+                  key={each.id}
+                  deleteTransaction={this.deleteTransaction}
+                />
               ))}
             </ul>
           </div>
